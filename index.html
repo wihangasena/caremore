@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care More | Premium Auto Detailing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Exo:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #00d8ff;
+            --metal: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Exo', sans-serif;
+            background-color: var(--primary);
+            color: white;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4, .nav-item {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 216, 255, 0.7);
+        }
+        
+        .glow-box {
+            box-shadow: 0 0 15px rgba(0, 216, 255, 0.5);
+        }
+        
+        .btn-accent {
+            background: var(--accent);
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-accent:hover {
+            box-shadow: 0 0 20px rgba(0, 216, 255, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-item:hover::after {
+            width: 100%;
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 216, 255, 0.3);
+            border-color: var(--accent);
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
+            border-left: 3px solid var(--accent);
+        }
+        
+        .before-after {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .before-after img {
+            transition: all 0.5s ease;
+        }
+        
+        .before-after:hover .before-img {
+            transform: translateX(-100%);
+        }
+        
+        .before-after:hover .after-img {
+            transform: translateX(-100%);
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .loading-animation {
+            animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            left: -10px;
+            top: 0;
+        }
+        
+        .timeline-line::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: var(--metal);
+            left: 0;
+            top: 20px;
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 216, 255, 0.5);
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        .booking-step {
+            display: none;
+        }
+        
+        .booking-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: var(--secondary);
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                background-position: 70% center;
+            }
+            
+            .timeline-item {
+                padding-left: 30px;
+            }
+            
+            .timeline-item::before {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body class="relative">
+    
+    <!-- Particles Background -->
+    <div id="particles-js" class="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-opacity-90 backdrop-filter backdrop-blur-lg transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl font-bold text-white">
+                        <span class="text-accent">CARE</span>MORE
+                    </span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-item text-white px-3 py-2 text-sm font-medium">HOME</a>
+                        <a href="#about" class="nav-item text-white px-3 py-2 text-sm font-medium">ABOUT</a>
+                        <a href="#services" class="nav-item text-white px-3 py-2 text-sm font-medium">SERVICES</a>
+                        <a href="#process" class="nav-item text-white px-3 py-2 text-sm font-medium">PROCESS</a>
+                        <a href="#gallery" class="nav-item text-white px-3 py-2 text-sm font-medium">GALLERY</a>
+                        <a href="#testimonials" class="nav-item text-white px-3 py-2 text-sm font-medium">TESTIMONIALS</a>
+                        <a href="#book" class="nav-item text-accent px-3 py-2 text-sm font-medium glow-text">BOOK NOW</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 text-base font-medium text-white">HOME</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-white">ABOUT</a>
+                <a href="#services" class="block px-3 py-2 text-base font-medium text-white">SERVICES</a>
+                <a href="#process" class="block px-3 py-2 text-base font-medium text-white">PROCESS</a>
+                <a href="#gallery" class="block px-3 py-2 text-base font-medium text-white">GALLERY</a>
+                <a href="#testimonials" class="block px-3 py-2 text-base font-medium text-white">TESTIMONIALS</a>
+                <a href="#book" class="block px-3 py-2 text-base font-medium text-accent">BOOK NOW</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero flex items-center justify-center relative">
+        <div class="text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 glow-text">
+                <span class="text-accent">CARE</span>MORE
+            </h1>
+            <h2 class="text-2xl md:text-4xl font-medium mb-8">WHERE PRECISION MEETS PERFECTION</h2>
+            <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+                Experience the future of automotive detailing with our cutting-edge techniques and premium care solutions.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#book" class="btn-accent px-8 py-3 rounded-full font-bold text-lg">BOOK NOW</a>
+                <a href="#services" class="border-2 border-accent text-accent px-8 py-3 rounded-full font-bold text-lg hover:bg-accent hover:text-primary transition-all">EXPLORE SERVICES</a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 text-center animate-bounce">
+            <a href="#about" class="text-white text-2xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">ABOUT US</h2>
+            <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+            <p class="text-lg md:text-xl max-w-4xl mx-auto">
+                We're revolutionizing automotive care with science-backed detailing techniques and an obsessive attention to detail.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="before-after relative h-96 overflow-hidden rounded-xl">
+                <img src="https://images.unsplash.com/photo-1600861195091-690c92f1d2cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                     alt="Before detailing" class="before-img absolute inset-0 w-full h-full object-cover transition-transform duration-500">
+                <img src="https://images.unsplash.com/photo-1494972308805-463bc619d34e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" 
+                     alt="After detailing" class="after-img absolute inset-0 w-full h-full object-cover transition-transform duration-500 translate-x-full">
+                <div class="absolute bottom-4 left-4 bg-black bg-opacity-70 px-4 py-2 rounded">
+                    <span class="text-white">Hover to see transformation</span>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-2xl md:text-3xl font-bold mb-6">REDEFINING AUTOMOTIVE CARE</h3>
+                <p class="mb-6">
+                    Founded in 2015, Care More has grown from a small detailing operation to the region's most advanced automotive care center. 
+                    Our team of certified detailers combines traditional craftsmanship with cutting-edge technology to deliver unparalleled results.
+                </p>
+                <p class="mb-6">
+                    We don't just clean cars - we restore, protect, and enhance them using nano-ceramic coatings, infrared curing technology, 
+                    and proprietary surface treatments developed in our own research lab.
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center">
+                        <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4">
+                            <i class="fas fa-award text-accent text-xl"></i>
+                        </div>
+                        <span>5-Time Best of City</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4">
+                            <i class="fas fa-car text-accent text-xl"></i>
+                        </div>
+                        <span>1000+ Cars Detailed</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4">
+                            <i class="fas fa-user-tie text-accent text-xl"></i>
+                        </div>
+                        <span>Certified Experts</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4">
+                            <i class="fas fa-leaf text-accent text-xl"></i>
+                        </div>
+                        <span>Eco-Friendly</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-secondary px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">OUR SERVICES</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-lg md:text-xl max-w-4xl mx-auto">
+                    Premium detailing services tailored to your vehicle's specific needs and your personal standards.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-accent text-4xl mb-6">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">CERAMIC COATING</h3>
+                    <p class="mb-6">
+                        Our nano-ceramic coating forms a permanent molecular bond with your paint, providing years of protection against UV rays, chemical stains, and minor scratches.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-accent">FROM $499</span>
+                        <a href="#book" class="text-white hover:text-accent transition-colors">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-accent text-4xl mb-6">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">PAINT CORRECTION</h3>
+                    <p class="mb-6">
+                        Multi-stage machine polishing to remove swirl marks, scratches, and oxidation, restoring your paint to better-than-new condition.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-accent">FROM $299</span>
+                        <a href="#book" class="text-white hover:text-accent transition-colors">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-accent text-4xl mb-6">
+                        <i class="fas fa-couch"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">INTERIOR DETAILING</h3>
+                    <p class="mb-6">
+                        Deep cleaning, conditioning, and protection of all interior surfaces using premium, non-toxic products that preserve your materials.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-accent">FROM $199</span>
+                        <a href="#book" class="text-white hover:text-accent transition-colors">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-accent text-4xl mb-6">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">PPF INSTALLATION</h3>
+                    <p class="mb-6">
+                        Paint Protection Film applied to high-impact areas to shield your paint from rock chips, bug acids, and road debris with self-healing technology.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-accent">FROM $799</span>
+                        <a href="#book" class="text-white hover:text-accent transition-colors">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-accent text-4xl mb-6">
+                        <i class="fas fa-fan"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">ENGINE DETAILING</h3>
+                    <p class="mb-6">
+                        Safe, thorough cleaning of your engine bay to prevent corrosion, improve cooling efficiency, and maintain resale value.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-accent">FROM $149</span>
+                        <a href="#book" class="text-white hover:text-accent transition-colors">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="service-card p-8 rounded-xl">
+                    <div class="text-accent text-4xl mb-6">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">CONCIERGE DETAILING</h3>
+                    <p class="mb-6">
+                        Our premium service includes pickup/delivery, loaner vehicle, and full interior/exterior detailing with ceramic coating included.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-accent">FROM $999</span>
+                        <a href="#book" class="text-white hover:text-accent transition-colors">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Process Section -->
+    <section id="process" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">OUR PROCESS</h2>
+            <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+            <p class="text-lg md:text-xl max-w-4xl mx-auto">
+                Every vehicle receives our signature 7-step detailing process, perfected over thousands of vehicles.
+            </p>
+        </div>
+        
+        <div class="relative">
+            <div class="timeline-line absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-gray-600 md:block hidden"></div>
+            
+            <!-- Process 1 -->
+            <div class="mb-12 md:mb-16 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-16 mb-6 md:mb-0 md:text-right">
+                    <h3 class="text-2xl font-bold mb-2">1. INITIAL ASSESSMENT</h3>
+                    <p>
+                        We perform a 50-point inspection using digital paint meters and specialized lighting to document your vehicle's exact condition.
+                    </p>
+                </div>
+                <div class="md:w-1/2 md:pl-16 relative">
+                    <div class="bg-secondary p-6 rounded-lg glow-box">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent bg-opacity-20 p-2 rounded-full mr-4">
+                                <i class="fas fa-search text-accent"></i>
+                            </div>
+                            <span class="font-bold">Paint Thickness Mapping</span>
+                        </div>
+                        <p>
+                            Using advanced digital gauges, we measure paint thickness at 20+ points to identify previous repairs and thin areas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Process 2 -->
+            <div class="mb-12 md:mb-16 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-16 mb-6 md:mb-0 order-2 md:order-1">
+                    <h3 class="text-2xl font-bold mb-2">2. DEEP CLEANING</h3>
+                    <p>
+                        Our pH-balanced snow foam and two-bucket wash system safely removes contaminants without scratching your paint.
+                    </p>
+                </div>
+                <div class="md:w-1/2 md:pl-16 relative order-1 md:order-2">
+                    <div class="bg-secondary p-6 rounded-lg glow-box">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent bg-opacity-20 p-2 rounded-full mr-4">
+                                <i class="fas fa-broom text-accent"></i>
+                            </div>
+                            <span class="font-bold">Decontamination</span>
+                        </div>
+                        <p>
+                            Clay bar treatment and iron fallout remover eliminate embedded contaminants that washing alone can't remove.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Process 3 -->
+            <div class="mb-12 md:mb-16 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-16 mb-6 md:mb-0 md:text-right">
+                    <h3 class="text-2xl font-bold mb-2">3. PAINT CORRECTION</h3>
+                    <p>
+                        Using precision polishing machines and proprietary compound systems, we remove swirls and restore gloss.
+                    </p>
+                </div>
+                <div class="md:w-1/2 md:pl-16 relative">
+                    <div class="bg-secondary p-6 rounded-lg glow-box">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent bg-opacity-20 p-2 rounded-full mr-4">
+                                <i class="fas fa-tools text-accent"></i>
+                            </div>
+                            <span class="font-bold">Multi-Stage Polishing</span>
+                        </div>
+                        <p>
+                            Our 3-step process (compound, polish, refine) achieves mirror-like finishes on even the softest paints.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Process 4 -->
+            <div class="mb-12 md:mb-16 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-16 mb-6 md:mb-0 order-2 md:order-1">
+                    <h3 class="text-2xl font-bold mb-2">4. PROTECTION</h3>
+                    <p>
+                        We apply ceramic coatings or sealants that chemically bond to your paint for long-lasting protection.
+                    </p>
+                </div>
+                <div class="md:w-1/2 md:pl-16 relative order-1 md:order-2">
+                    <div class="bg-secondary p-6 rounded-lg glow-box">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent bg-opacity-20 p-2 rounded-full mr-4">
+                                <i class="fas fa-shield-alt text-accent"></i>
+                            </div>
+                            <span class="font-bold">Nano-Ceramic Technology</span>
+                        </div>
+                        <p>
+                            Our 9H hardness coatings provide 3-5 years of protection against UV, chemicals, and environmental damage.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Process 5 -->
+            <div class="mb-12 md:mb-16 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-16 mb-6 md:mb-0 md:text-right">
+                    <h3 class="text-2xl font-bold mb-2">5. INTERIOR DETAILING</h3>
+                    <p>
+                        Every surface is cleaned, conditioned, and protected using techniques that preserve your interior materials.
+                    </p>
+                </div>
+                <div class="md:w-1/2 md:pl-16 relative">
+                    <div class="bg-secondary p-6 rounded-lg glow-box">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent bg-opacity-20 p-2 rounded-full mr-4">
+                                <i class="fas fa-vacuum text-accent"></i>
+                            </div>
+                            <span class="font-bold">Steam Cleaning</span>
+                        </div>
+                        <p>
+                            Our 300°F steam sanitizes without harsh chemicals, removing stains and odors from even delicate materials.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Process 6 -->
+            <div class="mb-12 md:mb-16 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-16 mb-6 md:mb-0 order-2 md:order-1">
+                    <h3 class="text-2xl font-bold mb-2">6. FINAL INSPECTION</h3>
+                    <p>
+                        Under specialized lighting, we perform a meticulous quality check to ensure perfection in every detail.
+                    </p>
+                </div>
+                <div class="md:w-1/2 md:pl-16 relative order-1 md:order-2">
+                    <div class="bg-secondary p-6 rounded-lg glow-box">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent bg-opacity-20 p-2 rounded-full mr-4">
+                                <i class="fas fa-check-circle text-accent"></i>
+                            </div>
+                            <span class="font-bold">Quality Assurance</span>
+                        </div>
+                        <p>
+                            Our 50-point checklist ensures every inch of your vehicle meets our exacting standards before delivery.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Process 7 -->
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-16 mb-6 md:mb-0 md:text-right">
+                    <h3 class="text-2xl font-bold mb-2">7. DELIVERY</h3>
+                    <p>
+                        Your vehicle is returned in a climate-controlled environment with a full walkthrough of the work performed.
+                    </p>
+                </div>
+                <div class="md:w-1/2 md:pl-16 relative">
+                    <div class="bg-secondary p-6 rounded-lg glow-box">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent bg-opacity-20 p-2 rounded-full mr-4">
+                                <i class="fas fa-car text-accent"></i>
+                            </div>
+                            <span class="font-bold">Aftercare Consultation</span>
+                        </div>
+                        <p>
+                            We provide detailed maintenance instructions and complimentary checkups to keep your vehicle looking its best.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-secondary px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">GALLERY</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-lg md:text-xl max-w-4xl mx-auto">
+                    Witness the transformation - browse our portfolio of recent detailing projects.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item rounded-lg overflow-hidden cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1494972308805-463bc619d34e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80')">
+                    <img src="https://images.unsplash.com/photo-1494972308805-463bc619d34e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" 
+                         alt="Detailed luxury car" class="w-full h-64 object-cover transition-transform duration-300">
+                    <div class="bg-primary bg-opacity-80 p-4">
+                        <h3 class="font-bold">Full Ceramic Coating</h3>
+                        <p class="text-sm text-gray-300">Porsche 911 Turbo S</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item rounded-lg overflow-hidden cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Detailed luxury car" class="w-full h-64 object-cover transition-transform duration-300">
+                    <div class="bg-primary bg-opacity-80 p-4">
+                        <h3 class="font-bold">Paint Correction</h3>
+                        <p class="text-sm text-gray-300">Mercedes-Benz AMG GT</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item rounded-lg overflow-hidden cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Detailed luxury car" class="w-full h-64 object-cover transition-transform duration-300">
+                    <div class="bg-primary bg-opacity-80 p-4">
+                        <h3 class="font-bold">Interior Detailing</h3>
+                        <p class="text-sm text-gray-300">Range Rover Autobiography</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item rounded-lg overflow-hidden cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1541899481282-d53b3e38d9d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                    <img src="https://images.unsplash.com/photo-1541899481282-d53b3e38d9d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Detailed luxury car" class="w-full h-64 object-cover transition-transform duration-300">
+                    <div class="bg-primary bg-opacity-80 p-4">
+                        <h3 class="font-bold">Full Detailing Package</h3>
+                        <p class="text-sm text-gray-300">BMW M8 Competition</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 5 -->
+                <div class="gallery-item rounded-lg overflow-hidden cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1547036967-23d11aaca258?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80')">
+                    <img src="https://images.unsplash.com/photo-1547036967-23d11aaca258?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" 
+                         alt="Detailed luxury car" class="w-full h-64 object-cover transition-transform duration-300">
+                    <div class="bg-primary bg-opacity-80 p-4">
+                        <h3 class="font-bold">Interior Restoration</h3>
+                        <p class="text-sm text-gray-300">Classic Porsche 911</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item rounded-lg overflow-hidden cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1549927681-0b673b8243ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                    <img src="https://images.unsplash.com/photo-1549927681-0b673b8243ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Detailed luxury car" class="w-full h-64 object-cover transition-transform duration-300">
+                    <div class="bg-primary bg-opacity-80 p-4">
+                        <h3 class="font-bold">Paint Protection Film</h3>
+                        <p class="text-sm text-gray-300">Tesla Model S Plaid</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center text-accent font-bold">
+                    VIEW FULL PORTFOLIO <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">CLIENT TESTIMONIALS</h2>
+            <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+            <p class="text-lg md:text-xl max-w-4xl mx-auto">
+                Don't just take our word for it - hear what our clients have to say about their Care More experience.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card p-8 rounded-lg">
+                <div class="flex items-center mb-6">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <h4 class="font-bold">Michael R.</h4>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="mb-6">
+                    "I've taken my Porsche to several detailers over the years, but none compare to Care More. The ceramic coating they applied still looks flawless after 2 years. Worth every penny."
+                </p>
+                <div class="text-sm text-gray-400">
+                    <i class="fas fa-car mr-2"></i> Porsche 911 GT3
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card p-8 rounded-lg">
+                <div class="flex items-center mb-6">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <h4 class="font-bold">Sarah L.</h4>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="mb-6">
+                    "The interior detailing brought my Range Rover back to showroom condition. They even removed coffee stains I thought were permanent. The team is incredibly professional."
+                </p>
+                <div class="text-sm text-gray-400">
+                    <i class="fas fa-car mr-2"></i> Range Rover Autobiography
+                </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card p-8 rounded-lg">
+                <div class="flex items-center mb-6">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <h4 class="font-bold">David K.</h4>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="mb-6">
+                    "The paint correction on my classic Ferrari was nothing short of miraculous. They removed decades of swirls and brought back the original depth of color. Simply amazing work."
+                </p>
+                <div class="text-sm text-gray-400">
+                    <i class="fas fa-car mr-2"></i> Ferrari 308 GTS
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="#" class="inline-flex items-center text-accent font-bold">
+                READ MORE REVIEWS <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Booking Section -->
+    <section id="book" class="py-20 bg-secondary px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">BOOK YOUR DETAILING</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto">
+                    Ready to experience the Care More difference? Schedule your appointment in just a few steps.
+                </p>
+            </div>
+            
+            <div class="bg-primary rounded-xl p-8 glow-box">
+                <div class="progress-bar rounded-full mb-8">
+                    <div id="progress" class="progress rounded-full" style="width: 25%;"></div>
+                </div>
+                
+                <div id="step1" class="booking-step active">
+                    <h3 class="text-2xl font-bold mb-6">1. SELECT YOUR VEHICLE TYPE</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <button class="vehicle-type-btn p-4 border border-gray-600 rounded-lg hover:border-accent hover:bg-accent hover:bg-opacity-10 transition-colors" data-type="sedan">
+                            <i class="fas fa-car text-3xl mb-2"></i>
+                            <p>Sedan</p>
+                        </button>
+                        <button class="vehicle-type-btn p-4 border border-gray-600 rounded-lg hover:border-accent hover:bg-accent hover:bg-opacity-10 transition-colors" data-type="suv">
+                            <i class="fas fa-truck text-3xl mb-2"></i>
+                            <p>SUV/Truck</p>
+                        </button>
+                        <button class="vehicle-type-btn p-4 border border-gray-600 rounded-lg hover:border-accent hover:bg-accent hover:bg-opacity-10 transition-colors" data-type="luxury">
+                            <i class="fas fa-gem text-3xl mb-2"></i>
+                            <p>Luxury</p>
+                        </button>
+                        <button class="vehicle-type-btn p-4 border border-gray-600 rounded-lg hover:border-accent hover:bg-accent hover:bg-opacity-10 transition-colors" data-type="exotic">
+                            <i class="fas fa-bolt text-3xl mb-2"></i>
+                            <p>Exotic</p>
+                        </button>
+                    </div>
+                    <div class="flex justify-end">
+                        <button onclick="nextStep(1)" class="btn-accent px-6 py-3 rounded-full font-bold">NEXT</button>
+                    </div>
+                </div>
+                
+                <div id="step2" class="booking-step">
+                    <h3 class="text-2xl font-bold mb-6">2. CHOOSE YOUR SERVICES</h3>
+                    <div class="space-y-4 mb-8">
+                        <div class="service-option p-4 border border-gray-600 rounded-lg cursor-pointer hover:border-accent transition-colors">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="service1" class="mr-4 h-5 w-5">
+                                <label for="service1" class="flex-1 cursor-pointer">
+                                    <h4 class="font-bold">Exterior Detailing</h4>
+                                    <p class="text-sm text-gray-400">Hand wash, clay bar, wax/sealant, wheel cleaning</p>
+                                </label>
+                                <span class="font-bold">$199+</span>
+                            </div>
+                        </div>
+                        <div class="service-option p-4 border border-gray-600 rounded-lg cursor-pointer hover:border-accent transition-colors">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="service2" class="mr-4 h-5 w-5">
+                                <label for="service2" class="flex-1 cursor-pointer">
+                                    <h4 class="font-bold">Interior Detailing</h4>
+                                    <p class="text-sm text-gray-400">Vacuum, steam clean, leather conditioning, odor removal</p>
+                                </label>
+                                <span class="font-bold">$249+</span>
+                            </div>
+                        </div>
+                        <div class="service-option p-4 border border-gray-600 rounded-lg cursor-pointer hover:border-accent transition-colors">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="service3" class="mr-4 h-5 w-5">
+                                <label for="service3" class="flex-1 cursor-pointer">
+                                    <h4 class="font-bold">Ceramic Coating</h4>
+                                    <p class="text-sm text-gray-400">Paint correction + 3-year nano-ceramic protection</p>
+                                </label>
+                                <span class="font-bold">$899+</span>
+                            </div>
+                        </div>
+                        <div class="service-option p-4 border border-gray-600 rounded-lg cursor-pointer hover:border-accent transition-colors">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="service4" class="mr-4 h-5 w-5">
+                                <label for="service4" class="flex-1 cursor-pointer">
+                                    <h4 class="font-bold">Full Detailing Package</h4>
+                                    <p class="text-sm text-gray-400">Complete interior/exterior with ceramic coating</p>
+                                </label>
+                                <span class="font-bold">$1,199+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <button onclick="prevStep(2)" class="border border-gray-600 px-6 py-3 rounded-full font-bold">BACK</button>
+                        <button onclick="nextStep(2)" class="btn-accent px-6 py-3 rounded-full font-bold">NEXT</button>
+                    </div>
+                </div>
+                
+                <div id="step3" class="booking-step">
+                    <h3 class="text-2xl font-bold mb-6">3. SELECT DATE & TIME</h3>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <label for="date" class="block mb-2 font-medium">Select Date</label>
+                            <input type="date" id="date" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-3">
+                        </div>
+                        <div>
+                            <label for="time" class="block mb-2 font-medium">Available Times</label>
+                            <select id="time" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-3">
+                                <option value="">Select a time</option>
+                                <option value="9:00 AM">9:00 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="1:00 PM">1:00 PM</option>
+                                <option value="3:00 PM">3:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <button onclick="prevStep(3)" class="border border-gray-600 px-6 py-3 rounded-full font-bold">BACK</button>
+                        <button onclick="nextStep(3)" class="btn-accent px-6 py-3 rounded-full font-bold">NEXT</button>
+                    </div>
+                </div>
+                
+                <div id="step4" class="booking-step">
+                    <h3 class="text-2xl font-bold mb-6">4. YOUR INFORMATION</h3>
+                    <div class="space-y-4 mb-8">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block mb-2 font-medium">Full Name</label>
+                                <input type="text" id="name" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-3">
+                            </div>
+                            <div>
+                                <label for="email" class="block mb-2 font-medium">Email</label>
+                                <input type="email" id="email" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-3">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="phone" class="block mb-2 font-medium">Phone</label>
+                                <input type="tel" id="phone" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-3">
+                            </div>
+                            <div>
+                                <label for="car" class="block mb-2 font-medium">Vehicle Make/Model</label>
+                                <input type="text" id="car" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-3">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="notes" class="block mb-2 font-medium">Special Requests</label>
+                            <textarea id="notes" rows="3" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-3"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <button onclick="prevStep(4)" class="border border-gray-600 px-6 py-3 rounded-full font-bold">BACK</button>
+                        <button onclick="submitBooking()" class="btn-accent px-6 py-3 rounded-full font-bold">COMPLETE BOOKING</button>
+                    </div>
+                </div>
+                
+                <div id="step5" class="booking-step text-center py-12">
+                    <div class="text-accent text-6xl mb-6">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-4">BOOKING CONFIRMED!</h3>
+                    <p class="mb-8 max-w-md mx-auto">
+                        Thank you for choosing Care More. We've sent a confirmation to your email with all the details. See you soon!
+                    </p>
+                    <a href="#home" class="btn-accent px-6 py-3 rounded-full font-bold inline-block">BACK TO HOME</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-primary py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">
+                        <span class="text-accent">CARE</span>MORE
+                    </h3>
+                    <p class="mb-4">
+                        Premium automotive detailing with cutting-edge technology and obsessive attention to detail.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-accent transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">QUICK LINKS</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="hover:text-accent transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-accent transition-colors">About Us</a></li>
+                        <li><a href="#services" class="hover:text-accent transition-colors">Services</a></li>
+                        <li><a href="#gallery" class="hover:text-accent transition-colors">Gallery</a></li>
+                        <li><a href="#book" class="hover:text-accent transition-colors">Book Now</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">SERVICES</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-accent transition-colors">Ceramic Coating</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Paint Correction</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Interior Detailing</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">PPF Installation</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Maintenance Washes</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">CONTACT US</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-accent mr-3"></i>
+                            <span>123 Auto Detail St, Tech City</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone text-accent mr-3"></i>
+                            <span>(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-accent mr-3"></i>
+                            <span>info@caremore.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock text-accent mr-3"></i>
+                            <span>Mon-Sat: 8AM-6PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>&copy; 2023 Care More Auto Detailing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close text-white" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" class="lightbox-content" src="" alt="">
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        // Loading animation
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading').style.display = 'none';
+            }, 1500);
+        });
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Lightbox functionality
+        function openLightbox(imgSrc) {
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Booking form steps
+        let currentStep = 1;
+        
+        function nextStep(step) {
+            document.getElementById('step' + step).classList.remove('active');
+            currentStep = step + 1;
+            document.getElementById('step' + currentStep).classList.add('active');
+            updateProgress();
+        }
+        
+        function prevStep(step) {
+            document.getElementById('step' + step).classList.remove('active');
+            currentStep = step - 1;
+            document.getElementById('step' + currentStep).classList.add('active');
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const progressPercentage = (currentStep - 1) * 25;
+            document.getElementById('progress').style.width = progressPercentage + '%';
+        }
+        
+        function submitBooking() {
+            nextStep(4);
+            // Here you would normally send the form data to your backend
+        }
+        
+        // Vehicle type selection
+        document.querySelectorAll('.vehicle-type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.vehicle-type-btn').forEach(b => {
+                    b.classList.remove('border-accent', 'bg-accent', 'bg-opacity-10');
+                });
+                this.classList.add('border-accent', 'bg-accent', 'bg-opacity-10');
+            });
+        });
+        
+        // Service selection
+        document.querySelectorAll('.service-option').forEach(option => {
+            const checkbox = option.querySelector('input[type="checkbox"]');
+            option.addEventListener('click', function(e) {
+                if (e.target !== checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                }
+                option.classList.toggle('border-accent', checkbox.checked);
+                option.classList.toggle('bg-accent', checkbox.checked);
+                option.classList.toggle('bg-opacity-10', checkbox.checked);
+            });
+        });
+        
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#00d8ff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.3,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#00d8ff",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        
+        // Set minimum date for booking (today)
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').min = today;
+    </script>
+</body>
+</html>
